@@ -5,6 +5,8 @@ Database Management System Group Project
 
 ## 项目文档
 
+- **当前任务：[11 月 21 日第一次提交指南](docs/tasks/T01_First_Submission.md)**：先读任务解析，再评审候选 ER；包含分工、写作、验收与问答。
+
 - [Requirement.md](Requirement.md)：优化后的项目总框架、课程要求、业务规则、模型、技术深度及 Codex 协作要求。
 - [Workflow_and_Team_Plan.md](Workflow_and_Team_Plan.md)：六人分工、阶段安排、数据库与后端开始时间。
 - [文档入库与分支说明](docs/tasks/T00_Documentation_Baseline.md)：本次任务记录，以及分支、main 和 PR 的区别。
