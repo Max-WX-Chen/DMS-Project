@@ -5,6 +5,8 @@ Database Management System Group Project
 
 ## 项目文档
 
+- **[下载两页 Word 初稿](docs/submissions/first_submission/COMP3013_26F_GroupXXX_First_Submission.docx)**：[Markdown 源稿](docs/submissions/first_submission/COMP3013_26F_GroupXXX_First_Submission.md) · [中文任务与提交检查](docs/tasks/T01_Word_Draft.md)。英文问题描述及 ER 文字表格版，组号成员待填。
+
 - **当前任务：[11 月 21 日第一次提交指南](docs/tasks/T01_First_Submission.md)**：先读任务解析，再评审候选 ER；包含分工、写作、验收与问答。
 
 - [Requirement.md](Requirement.md)：优化后的项目总框架、课程要求、业务规则、模型、技术深度及 Codex 协作要求。
