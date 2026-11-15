@@ -1,13 +1,13 @@
 # T01：11 月 21 日第一次提交——任务解析、模型完善与组员指南
 
-> 版本：v1.1，2026-11-15  
+> 版本：v1.2，2026-11-15  
 > 课程：COMP3013 Database Management System，2026 Fall  
 > 项目：Fitness Center Membership and Class Booking System  
 > 对应阶段：问题描述与 ER 图初稿  
 > 阅读对象：全体组员，以及承担后续任务的 Codex。  
 > 本文件是组内详细指南，含用于讨论的 ER 草案；不是已经排好版、可以直接提交的 1–2 页成品。
 
-后续产出：[两页 Word 文字表格版](../submissions/first_submission/COMP3013_26F_GroupXXX_First_Submission.docx)已生成并完成试转 PDF 检查；填写组号成员、ER 形式和最终导出检查见 [Word 任务说明](T01_Word_Draft.md)。
+现行产出：[Group 10 两页 Chen ER Word](../submissions/first_submission/COMP3013_26F_Group10_ER_diagram_draft.docx)已生成，第一页保留用户问题描述，第二页为横向 Chen 图；图例与检查见 [Chen 任务说明](T01_Chen_ER_Diagram.md)。首次提交不默认添加全组名单。
 
 相关文档：[项目总框架](../../Requirement.md) · [分工与阶段计划](../../Workflow_and_Team_Plan.md)。本次应先读本文件第 1–4 节理解任务，再读第 5–9 节评审模型，最后按第 10–13 节执行。
 
@@ -169,83 +169,17 @@ User—Membership 与 MembershipPlan—Membership 的业务关系仍然存在，
 
 ## 7. 候选 ER 初稿与一个完整例子
 
-### 7.1 可讨论的 Crow’s Foot ER 草案
+### 7.1 课程要求的 Chen ER 草稿
 
-这是组内评审用初稿，保留标识和少量业务属性。关系通过线条表达，图中没有罗列全部外键、审计字段与 SQL 类型细节；请勿直接把它当作最终建表脚本。
+![Chen ER diagram](../submissions/first_submission/assets/Group10_Chen_ER_diagram_draft.svg)
 
-```mermaid
-erDiagram
-    USER ||--o{ ORDER : places
-    MEMBERSHIP_PLAN ||--o{ ORDER : selected_in
-    ORDER ||--o{ PAYMENT : has_attempt
-    ORDER ||--o| MEMBERSHIP : creates_after_payment
-    COURSE ||--o{ CLASS_SESSION : scheduled_as
-    COACH ||--o{ CLASS_SESSION : leads
-    VENUE ||--o{ CLASS_SESSION : hosts
-    USER ||--o{ BOOKING : makes
-    CLASS_SESSION ||--o{ BOOKING : receives
-    BOOKING ||--o| ATTENDANCE : results_in
+采用小组确认的课程画法：实体矩形、联系菱形、属性椭圆、主键下划线；基数约束以联系指向“一端”实体的箭头表示，完全参与用双线、部分参与用单线。箭头不表示业务流程方向。
 
-    USER {
-        int user_id PK
-        string role
-        string account_status
-    }
-    MEMBERSHIP_PLAN {
-        int plan_id PK
-        string name
-        decimal price
-        int duration_days
-    }
-    ORDER {
-        int order_id PK
-        datetime created_at
-        string status
-    }
-    PAYMENT {
-        int payment_id PK
-        datetime attempted_at
-        string status
-    }
-    MEMBERSHIP {
-        int membership_id PK
-        datetime starts_at
-        datetime ends_at
-    }
-    COACH {
-        int coach_id PK
-        string name
-    }
-    VENUE {
-        int venue_id PK
-        string name
-        int capacity
-    }
-    COURSE {
-        int course_id PK
-        string name
-    }
-    CLASS_SESSION {
-        int session_id PK
-        datetime starts_at
-        datetime ends_at
-        int capacity
-    }
-    BOOKING {
-        int booking_id PK
-        string status
-        datetime booked_at
-    }
-    ATTENDANCE {
-        int attendance_id PK
-        string result
-        datetime checked_in_at
-    }
-```
+十一实体与十条联系保持原有语义，图上选取二十项关键属性。完整信息需求见第 5 节。图中十二支箭头是因为两条一对一联系各有两个箭头；共有十个完全参与端。
 
-读图说明：`||` 表示恰好一个，`o{` 表示零到多个，`o|` 表示零或一个；PK 是标识。关系线的“可选”与某个属性允许为空是不同问题。此图采用 Mermaid 支持的鸦脚表示法；老师若指定 Chen 等表示法，应转换表示方式，保留相同业务含义。
+例如 User—places—Order 中箭头指 User，Order 端双线：每笔订单有一位会员，会员可没有或有多笔订单。Order—creates—Membership 两端都有箭头，但只有 Membership 端双线，因为未付款订单可没有会籍。
 
-GitHub 支持显示 Mermaid 代码块；正式交稿建议导出清晰的矢量图或高分辨率图，检查完整两页的排版。本 Mermaid 草图尚未进行图形渲染和打印排版验证；后续 Word 文字表格版已完成独立的两页检查，不能将表格版验证等同于图形 ER 已完成。
+不再把其他表示法作为正式输出。图源、逐条解释和线条检查见 [T01_Chen_ER_Diagram.md](T01_Chen_ER_Diagram.md)。Word 已完成两页试转检查，最终提交前仍应检查导出清晰度和平台格式。
 
 ### 7.2 用一个故事贯穿模型
 
@@ -297,7 +231,7 @@ GitHub 支持显示 Mermaid 代码块；正式交稿建议导出清晰的矢量�
 
 **第 1 页：Problem Description & Scope**
 
-- 项目名称、组号与必要成员信息。
+- 项目名称与 Group 10；老师未要求首次提交附全组名单，不自行增加。
 - 一段背景与具体问题。
 - 一段选题动机和目标。
 - 一段信息建模范围。
@@ -356,7 +290,7 @@ C 组现在准备环境，模型初版稳定后即可开始真实数据库和后
 - [ ] 套餐版本在被订单引用后固定价格和时长。
 - [ ] 会籍连续覆盖、容量与冲突规则写清楚，没有误称已由 ER 线条自动保证。
 - [ ] 正式稿约 1–2 页，图在实际导出尺寸下可读；当前仅 MD 不能替代此项检查。
-- [ ] 文件名、组号、成员、语言和格式按最终要求核对。
+- [ ] 文件名、Group 10、语言和格式按最终要求核对；本稿不附全组名单。
 - [ ] 六名成员能解释模型，并有可编辑源文和对应任务 MD。
 
 ### 12.2 组内必须能回答的问题
@@ -399,12 +333,12 @@ C 组现在准备环境，模型初版稳定后即可开始真实数据库和后
 
 已重新读取 GitHub main 基线及本地课程主要求，依据原文拆解任务；核对十一实体、十条关系及文字一致性，检查文件链接和变更范围。实际完成的远程提交与校验见 PR 说明。
 
-Mermaid 仅作为候选图源码进行结构核对，本次没有完成图形渲染、打印预览或最终两页排版验证。未来实现是否达到 3NF、并发正确与性能阈值，必须各自验证，不能由本指南代替。
+现行 Chen 图已完成矢量渲染、Word 嵌入与两页试转检查，详情见 T01_Chen_ER_Diagram.md。未来实现是否达到 3NF、并发正确与性能阈值，仍必须各自验证，不能由文档和图形代替。
 
 ### 13.3 下一步的具体任务
 
 1. 全组评审本文件第 5–8 节：确认实体、联系、归属路径和关键假设。
-2. A 组按第 10 节核对现有 Word 文字表格版，补齐组号成员；若需图形 ER，生成图源和导出图替换第二页，保留中文解释。
+2. A 组按第 10 节核对现有两页 Chen Word 与 SVG 图源，保留中文解释，不添加未要求的名单。
 3. B、C 组交叉检查，A 组修订，最终检查组号、页数和可读性。
 4. ER／关系初版稳定后，C 组进入数据库与核心后端，B 组推进静态页面。
 
