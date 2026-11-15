@@ -5,7 +5,7 @@ Database Management System Group Project
 
 ## 项目文档
 
-- **[下载两页 Word 初稿](docs/submissions/first_submission/COMP3013_26F_GroupXXX_First_Submission.docx)**：[Markdown 源稿](docs/submissions/first_submission/COMP3013_26F_GroupXXX_First_Submission.md) · [中文任务与提交检查](docs/tasks/T01_Word_Draft.md)。英文问题描述及 ER 文字表格版，组号成员待填。
+- **[下载 Group 10 两页 Word](docs/submissions/first_submission/COMP3013_26F_Group10_ER_diagram_draft.docx)**：[Markdown 源稿](docs/submissions/first_submission/COMP3013_26F_Group10_ER_diagram_draft.md) · [Chen 图源 SVG](docs/submissions/first_submission/assets/Group10_Chen_ER_diagram_draft.svg) · [中文任务与检查](docs/tasks/T01_Chen_ER_Diagram.md)。第一页为问题描述，第二页为 Chen ER 图，箭头表示基数、双线表示完全参与；不附全组名单。
 
 - **当前任务：[11 月 21 日第一次提交指南](docs/tasks/T01_First_Submission.md)**：先读任务解析，再评审候选 ER；包含分工、写作、验收与问答。
 
