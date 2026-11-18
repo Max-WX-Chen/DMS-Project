@@ -62,7 +62,7 @@ Database Management System Group Project
 | V09 | membership.html | 当前会籍、订单与购买周期 |
 | V10 | profile.html | 资料、密码修改布局、出勤历史 |
 | V11 | admin-dashboard.html | 管理概览、当日课程与容量 |
-| V12 | admin-members.html | 会员搜索、详情与状态 |
+| V12 | admin-members.html | 会员列表、固定搜索示例、详情与状态 |
 | V13 | admin-plans.html | 套餐版本、订单与收款确认示例 |
 | V14 | admin-resources.html | 教练、场地、课程模板管理 |
 | V15 | admin-schedule.html | 排课布局、名单、签到与结课示例 |
@@ -79,6 +79,8 @@ Database Management System Group Project
 5. **签到、结课与统计（W06）**：排课页 → S101 名单 → Jamie 或 Sam 的签到结果 → 返回名单查看结课示例。Reports 展示固定报表与统计口径。
 
 各场景使用独立的固定数据。注册登录、资源管理、线下收款、固定筛选和异常状态也可从演示导航或相应页面进入。
+
+在 **Members** 中可浏览四位样例会员。点 **View An Lifeng search example** 看固定的单条搜索结果，再点 **Show all sample members** 回到列表。输入栏显示预设的只读查询，真正按姓名、编号或邮箱搜索在后端联调时接入。
 
 ### 你需要能讲清楚的内容
 
