@@ -1,0 +1,37 @@
+<svg width="600" height="650" viewBox="0 0 600 650" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg" class="hero-illustration">
+            <title id="title">The art of showing up</title>
+            <desc id="desc">An original geometric illustration of an athlete stretching in a warm green studio.</desc>
+            <defs>
+              <linearGradient id="wall" x2="0" y2="1">
+                <stop stop-color="#c7d0b9"></stop>
+                <stop offset="1" stop-color="#dce2ca"></stop>
+              </linearGradient>
+              <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="2" r=".6" fill="#233a2d" opacity=".06"></circle>
+              </pattern>
+            </defs>
+            <rect width="600" height="650" fill="url(#wall)"></rect>
+            <path d="M430 0V380H600V0" fill="#eef0d9"></path>
+            <path d="M430 0V380M518 0V380M430 145H600M430 260H600" fill="none" stroke="#b2bea1" stroke-width="5"></path>
+            <path d="M0 485H600V650H0Z" fill="#adb89a"></path>
+            <path d="M430 380 600 485H275Z" fill="#e9ebd1" opacity=".6"></path>
+            <ellipse cx="333" cy="565" rx="198" ry="28" fill="#829176" opacity=".45"></ellipse>
+            <path d="M129 563H519L461 599H69Z" fill="#365749"></path>
+            <path d="M296 314 229 422 179 536" fill="none" stroke="#203e35" stroke-width="57" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M313 321 366 438 468 533" fill="none" stroke="#284b3f" stroke-width="62" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M179 528 153 558 187 564 210 550" fill="#eef0df"></path>
+            <path d="M464 524 491 546 525 548 526 560 475 564 449 543" fill="#eef0df"></path>
+            <path d="M267 211 323 198 347 326Q294 354 254 320Z" fill="#e9f582"></path>
+            <path d="M278 219 228 267 175 194" fill="none" stroke="#b67e5e" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M322 214 358 148 404 98" fill="none" stroke="#c68c69" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M175 196 162 175M404 100 417 80" fill="none" stroke="#c68c69" stroke-width="19" stroke-linecap="round"></path>
+            <path d="M290 206 292 179" stroke="#ba805c" stroke-width="23" stroke-linecap="round"></path>
+            <ellipse cx="290" cy="157" rx="29" ry="37" transform="rotate(12 290 157)" fill="#cb946d"></ellipse>
+            <path d="M263 161Q246 111 287 110Q328 108 321 155L308 145 298 127Q278 135 267 167Z" fill="#293b30"></path>
+            <circle cx="264" cy="118" r="21" fill="#293b30"></circle>
+            <path d="M20 36H120M20 36V136" fill="none" stroke="#365749" opacity=".6"></path>
+            <text x="42" y="68" font-family="Arial,sans-serif" font-size="12" fill="#365749" letter-spacing="3">MOVE WITH</text>
+            <text x="42" y="90" font-family="Arial,sans-serif" font-size="12" fill="#365749" letter-spacing="3">INTENTION.</text>
+            <text x="558" y="605" text-anchor="end" font-family="Arial,sans-serif" font-size="11" fill="#365749" letter-spacing="3">FORM / 01</text>
+            <rect width="600" height="650" fill="url(#grain)"></rect>
+          </svg>

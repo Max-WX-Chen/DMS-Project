@@ -44,6 +44,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/start-apache.ps1 -Port
 
 三个教学账号的密码均为 `FormClub2026!`。正式部署时另建账号。接口与事务复现见 [C1 说明](design/billing-v1.md)。
 
+### 完整站点的演示顺序
+
+1. 打开 [首页](http://127.0.0.1:8091/)，用已有会籍的会员账号登录。在 Classes 打开导入日次日的 Power Flow，确认预约后，在 My bookings 取消。每次真实请求的数据库耗时显示在页脚。
+2. 打开 Membership 选购或续费，选择模拟支付。创建订单后确认付款，查看新周期起点与上一周期终点。线下付款可用新会员体验，之后切换管理员，在 Plans & orders 确认收款。
+3. 以管理员进入 Schedule & check-in，可发布新场次、逐场查看名单、停课。现场签到需在开课前 30 分钟至开课后 15 分钟内，结课需到结束时间。初始历史场次可在 Reports 查看。固定时钟测试覆盖这些场景的全部边界。
+4. B 组按 [课表、预约、签到与报表契约](design/classes-v1.md) 替换静态示例。会员预约与取消以 booking_id / session_id 关联，后台名单以 session_id 查询。业务时间由 PHP 和数据库统一处理。
+
 ## 4. 测试用库
 
 业务测试会写入数据。另建 `form_http_test` 或 `form_c2_test` 并导入小型 SQL。使用独立的配置文件、数据库账号和 Apache 端口，例如 `tools/start-apache.ps1 -Port 8092 -ConfigPath C:\path\test.php`。配置结构与 `config/example.php` 一致。
