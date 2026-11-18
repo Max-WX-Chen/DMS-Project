@@ -1,6 +1,12 @@
 # DMS-Project
 Database Management System Group Project
 
+## XAMPP 后端
+
+[安装、运行和演示账号](docs/XAMPP.md) · [账号与会籍接口](docs/design/billing-v1.md) · [数据库字典](docs/design/schema-v1.md) · [C1 验证记录](docs/tasks/T04_C1_Database_Billing.md)
+
+用 `database/form_club.sql` 初始化小型演示库。课程规模验收可在另一空库中依次导入该文件和 `database/scale_fixture.sql`。网页服务以 `public/` 为文档根目录。
+
 健身中心会员与课程预约管理系统。仓库收录阶段一的问题描述和 ER 草稿，以及 11 月 27 日阶段的静态网页。
 
 ## 项目文档
