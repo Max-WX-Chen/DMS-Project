@@ -1,0 +1,87 @@
+{
+  "checkedOn": "2026-11-18",
+  "viewportWidths": [
+    1440,
+    390
+  ],
+  "javascriptEnabled": false,
+  "archiveSha256": "cbc8954a84f2c26a268fbf708a9cfee31c38441d2383cbbbad1d8546c53dfdc4",
+  "browser": "156.0.8078.79",
+  "pages": 70,
+  "refs": 1377,
+  "rosterChecks": [
+    "S101",
+    "S102",
+    "S103",
+    "S104",
+    "S105",
+    "S106"
+  ],
+  "checkIns": [
+    "Jamie",
+    "Sam"
+  ],
+  "renewals": [
+    "membership.html",
+    "membership-renewed-30.html",
+    "membership-renewed.html",
+    "membership-renewed-365.html"
+  ],
+  "failures": [],
+  "badRefs": [],
+  "externalNetwork": [],
+  "unreachable": [],
+  "paths": [
+    {
+      "from": "index.html",
+      "steps": [
+        "plans.html",
+        "checkout.html",
+        "result-payment.html",
+        "membership-renewed.html"
+      ],
+      "passe": true
+    },
+    {
+      "from": "schedule.html",
+      "steps": [
+        "class-detail.html",
+        "result-booking.html",
+        "bookings-confirmed.html",
+        "result-cancellation-yoga.html",
+        "bookings-cancelled-yoga.html"
+      ],
+      "passe": true
+    },
+    {
+      "from": "admin-schedule.html",
+      "steps": [
+        "result-session.html"
+      ],
+      "passe": true
+    },
+    {
+      "from": "roster.html",
+      "steps": [
+        "result-checkin.html",
+        "roster-checked-in.html"
+      ],
+      "passe": true
+    },
+    {
+      "from": "roster.html",
+      "steps": [
+        "result-checkin-sam.html",
+        "roster-checked-in-sam.html"
+      ],
+      "passe": true
+    },
+    {
+      "from": "schedule.html",
+      "steps": [
+        "schedule-yoga.html"
+      ],
+      "passe": true
+    }
+  ]
+}
