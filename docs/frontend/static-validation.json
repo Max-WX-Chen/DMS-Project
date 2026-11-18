@@ -1,14 +1,37 @@
 {
   "checkedOn": "2026-11-18",
   "viewportWidths": [
-    1440,
-    390
+    320,
+    390,
+    768,
+    1024,
+    1440
   ],
   "javascriptEnabled": false,
-  "archiveSha256": "cbc8954a84f2c26a268fbf708a9cfee31c38441d2383cbbbad1d8546c53dfdc4",
+  "archiveSha256": "9a6d18bb29e53f2c2cd0c0b17bfec8489c1e639752646c8eecde7779dd04f0ed",
+  "pageViewportCombinations": 350,
+  "layoutErrors": [],
   "browser": "156.0.8078.79",
   "pages": 70,
-  "refs": 1377,
+  "refs": 1374,
+  "tabsChecks": [
+    "Upcoming",
+    "Past",
+    "Cancelled",
+    "All bookings"
+  ],
+  "tabPages": 8,
+  "memberSearchExample": true,
+  "classStates": [
+    "S103",
+    "S104",
+    "S106"
+  ],
+  "offlinePages": [
+    "checkout-30.html",
+    "checkout.html",
+    "checkout-365.html"
+  ],
   "rosterChecks": [
     "S101",
     "S102",
@@ -40,7 +63,7 @@
         "result-payment.html",
         "membership-renewed.html"
       ],
-      "passe": true
+      "passed": true
     },
     {
       "from": "schedule.html",
@@ -51,14 +74,14 @@
         "result-cancellation-yoga.html",
         "bookings-cancelled-yoga.html"
       ],
-      "passe": true
+      "passed": true
     },
     {
       "from": "admin-schedule.html",
       "steps": [
         "result-session.html"
       ],
-      "passe": true
+      "passed": true
     },
     {
       "from": "roster.html",
@@ -66,7 +89,7 @@
         "result-checkin.html",
         "roster-checked-in.html"
       ],
-      "passe": true
+      "passed": true
     },
     {
       "from": "roster.html",
@@ -74,14 +97,62 @@
         "result-checkin-sam.html",
         "roster-checked-in-sam.html"
       ],
-      "passe": true
+      "passed": true
     },
     {
       "from": "schedule.html",
       "steps": [
         "schedule-yoga.html"
       ],
-      "passe": true
+      "passed": true
+    },
+    {
+      "from": "login.html",
+      "steps": [
+        "register.html",
+        "result-register.html",
+        "login.html"
+      ],
+      "passed": true
+    },
+    {
+      "from": "schedule.html",
+      "steps": [
+        "schedule-empty.html"
+      ],
+      "passed": true
+    },
+    {
+      "from": "admin-schedule.html",
+      "steps": [
+        "result-session-cancelled.html",
+        "schedule.html"
+      ],
+      "passed": true
+    },
+    {
+      "from": "admin-plans.html",
+      "steps": [
+        "result-receipt.html",
+        "admin-plans.html"
+      ],
+      "passed": true
+    },
+    {
+      "from": "roster.html",
+      "steps": [
+        "result-completion.html",
+        "roster-completed.html",
+        "admin-schedule.html"
+      ],
+      "passed": true
+    },
+    {
+      "from": "bookings-confirmed-s102.html",
+      "steps": [
+        "states.html#cancellation-policy"
+      ],
+      "passed": true
     }
   ]
 }
