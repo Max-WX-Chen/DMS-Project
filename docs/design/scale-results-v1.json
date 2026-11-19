@@ -1,0 +1,517 @@
+{
+    "environment": {
+        "db_version": "10.4.32-MariaDB",
+        "isolation_level": "READ-COMMITTED",
+        "buffer_pool_bytes": 134217728,
+        "flush_on_commit": 1
+    },
+    "php": "8.2.12",
+    "os": "Windows",
+    "rows": {
+        "users": 2003,
+        "membership_plans": 3,
+        "orders": 2002,
+        "payments": 2119,
+        "memberships": 2001,
+        "coaches": 3,
+        "venues": 3,
+        "courses": 3,
+        "class_sessions": 3603,
+        "bookings": 63001,
+        "attendance": 59761
+    },
+    "mean_rows": 12227.454545454546,
+    "integrity": {
+        "sale": 0,
+        "period_length": 0,
+        "role": 0,
+        "period_coverage": 0,
+        "coach_overlap": 0,
+        "venue_overlap": 0,
+        "member_overlap": 0,
+        "attendance": 0,
+        "unfinalized": 0,
+        "capacity": 0
+    },
+    "within_course_thresholds": true,
+    "table_ms": {
+        "users": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.131,
+                "p95_ms": 0.271,
+                "max_ms": 0.271
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.184,
+                "p95_ms": 0.249,
+                "max_ms": 0.249
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.133,
+                "p95_ms": 0.326,
+                "max_ms": 0.326
+            }
+        },
+        "membership_plans": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.12,
+                "p95_ms": 0.187,
+                "max_ms": 0.187
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.176,
+                "p95_ms": 0.271,
+                "max_ms": 0.271
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.124,
+                "p95_ms": 0.194,
+                "max_ms": 0.194
+            }
+        },
+        "orders": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.143,
+                "p95_ms": 0.255,
+                "max_ms": 0.255
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.159,
+                "p95_ms": 0.863,
+                "max_ms": 0.863
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.129,
+                "p95_ms": 0.24,
+                "max_ms": 0.24
+            }
+        },
+        "payments": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.129,
+                "p95_ms": 0.28,
+                "max_ms": 0.28
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.152,
+                "p95_ms": 0.278,
+                "max_ms": 0.278
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.12,
+                "p95_ms": 0.168,
+                "max_ms": 0.168
+            }
+        },
+        "memberships": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.13,
+                "p95_ms": 0.177,
+                "max_ms": 0.177
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.144,
+                "p95_ms": 0.326,
+                "max_ms": 0.326
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.108,
+                "p95_ms": 1.133,
+                "max_ms": 1.133
+            }
+        },
+        "coaches": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.101,
+                "p95_ms": 0.138,
+                "max_ms": 0.138
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.131,
+                "p95_ms": 0.185,
+                "max_ms": 0.185
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.106,
+                "p95_ms": 0.288,
+                "max_ms": 0.288
+            }
+        },
+        "venues": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.111,
+                "p95_ms": 0.146,
+                "max_ms": 0.146
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.134,
+                "p95_ms": 0.463,
+                "max_ms": 0.463
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.105,
+                "p95_ms": 0.279,
+                "max_ms": 0.279
+            }
+        },
+        "courses": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.09,
+                "p95_ms": 0.154,
+                "max_ms": 0.154
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.139,
+                "p95_ms": 0.294,
+                "max_ms": 0.294
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.118,
+                "p95_ms": 0.246,
+                "max_ms": 0.246
+            }
+        },
+        "class_sessions": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.132,
+                "p95_ms": 0.181,
+                "max_ms": 0.181
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.152,
+                "p95_ms": 0.184,
+                "max_ms": 0.184
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.117,
+                "p95_ms": 0.267,
+                "max_ms": 0.267
+            }
+        },
+        "bookings": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.111,
+                "p95_ms": 0.143,
+                "max_ms": 0.143
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.134,
+                "p95_ms": 0.199,
+                "max_ms": 0.199
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.115,
+                "p95_ms": 0.258,
+                "max_ms": 0.258
+            }
+        },
+        "attendance": {
+            "insert": {
+                "n": 10,
+                "median_ms": 0.112,
+                "p95_ms": 0.119,
+                "max_ms": 0.119
+            },
+            "find": {
+                "n": 10,
+                "median_ms": 0.135,
+                "p95_ms": 0.221,
+                "max_ms": 0.221
+            },
+            "delete": {
+                "n": 10,
+                "median_ms": 0.127,
+                "p95_ms": 0.303,
+                "max_ms": 0.303
+            }
+        }
+    },
+    "all_11_rows_in_one_committed_batch": {
+        "insert": {
+            "n": 10,
+            "median_ms": 2.008,
+            "p95_ms": 3.421,
+            "max_ms": 3.421
+        },
+        "delete": {
+            "n": 10,
+            "median_ms": 2.164,
+            "p95_ms": 3.326,
+            "max_ms": 3.326
+        }
+    },
+    "business_queries": {
+        "schedule": {
+            "n": 10,
+            "median_ms": 0.202,
+            "p95_ms": 0.276,
+            "max_ms": 0.276
+        },
+        "member_bookings": {
+            "n": 10,
+            "median_ms": 0.254,
+            "p95_ms": 0.515,
+            "max_ms": 0.515
+        },
+        "roster": {
+            "n": 10,
+            "median_ms": 0.34,
+            "p95_ms": 0.481,
+            "max_ms": 0.481
+        },
+        "membership": {
+            "n": 10,
+            "median_ms": 0.221,
+            "p95_ms": 0.376,
+            "max_ms": 0.376
+        },
+        "receipts": {
+            "n": 10,
+            "median_ms": 2.843,
+            "p95_ms": 3.478,
+            "max_ms": 3.478
+        },
+        "attendance_summary": {
+            "n": 10,
+            "median_ms": 13.555,
+            "p95_ms": 14.75,
+            "max_ms": 14.75
+        }
+    },
+    "plans": {
+        "schedule": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "class_sessions",
+                "type": "range",
+                "possible_keys": "ix_schedule",
+                "key": "ix_schedule",
+                "key_len": "6",
+                "ref": null,
+                "rows": "2",
+                "Extra": "Using where; Using index"
+            }
+        ],
+        "member_bookings": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "b",
+                "type": "ref",
+                "possible_keys": "uq_member_session,ix_roster",
+                "key": "uq_member_session",
+                "key_len": "4",
+                "ref": "const",
+                "rows": "36",
+                "Extra": "Using index; Using temporary; Using filesort"
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "s",
+                "type": "eq_ref",
+                "possible_keys": "PRIMARY,fk_session_course",
+                "key": "PRIMARY",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.b.session_id",
+                "rows": "1",
+                "Extra": ""
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "c",
+                "type": "ALL",
+                "possible_keys": "PRIMARY",
+                "key": null,
+                "key_len": null,
+                "ref": null,
+                "rows": "3",
+                "Extra": "Using where; Using join buffer (flat, BNL join)"
+            }
+        ],
+        "roster": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "b",
+                "type": "ref",
+                "possible_keys": "uq_member_session,ix_roster",
+                "key": "ix_roster",
+                "key_len": "4",
+                "ref": "const",
+                "rows": "19",
+                "Extra": "Using where; Using filesort"
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "u",
+                "type": "eq_ref",
+                "possible_keys": "PRIMARY",
+                "key": "PRIMARY",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.b.user_id",
+                "rows": "1",
+                "Extra": ""
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "a",
+                "type": "eq_ref",
+                "possible_keys": "uq_attendance_booking",
+                "key": "uq_attendance_booking",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.b.booking_id",
+                "rows": "1",
+                "Extra": ""
+            }
+        ],
+        "membership": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "o",
+                "type": "ref",
+                "possible_keys": "PRIMARY,uq_order_request,ix_order_owner,ix_order_status_time",
+                "key": "ix_order_owner",
+                "key_len": "5",
+                "ref": "const,const",
+                "rows": "1",
+                "Extra": "Using where; Using index; Using temporary; Using filesort"
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "m",
+                "type": "eq_ref",
+                "possible_keys": "uq_membership_order",
+                "key": "uq_membership_order",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.o.order_id",
+                "rows": "1",
+                "Extra": ""
+            }
+        ],
+        "receipts": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "mp",
+                "type": "ALL",
+                "possible_keys": "PRIMARY",
+                "key": null,
+                "key_len": null,
+                "ref": null,
+                "rows": "3",
+                "Extra": ""
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "o",
+                "type": "ref",
+                "possible_keys": "PRIMARY,fk_order_plan",
+                "key": "fk_order_plan",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.mp.plan_id",
+                "rows": "1",
+                "Extra": "Using index"
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "p",
+                "type": "ref",
+                "possible_keys": "uq_payment_request,uq_one_settlement,ix_receipts",
+                "key": "uq_payment_request",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.o.order_id",
+                "rows": "1",
+                "Extra": "Using where"
+            }
+        ],
+        "attendance_summary": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "s",
+                "type": "range",
+                "possible_keys": "PRIMARY,ix_schedule,fk_session_course",
+                "key": "ix_schedule",
+                "key_len": "6",
+                "ref": null,
+                "rows": "523",
+                "Extra": "Using index condition; Using temporary; Using filesort"
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "b",
+                "type": "ref",
+                "possible_keys": "PRIMARY,ix_roster",
+                "key": "ix_roster",
+                "key_len": "5",
+                "ref": "form_club_restore_v1.s.session_id,const",
+                "rows": "1",
+                "Extra": "Using where; Using index"
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "a",
+                "type": "eq_ref",
+                "possible_keys": "uq_attendance_booking",
+                "key": "uq_attendance_booking",
+                "key_len": "4",
+                "ref": "form_club_restore_v1.b.booking_id",
+                "rows": "1",
+                "Extra": ""
+            },
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "c",
+                "type": "ALL",
+                "possible_keys": "PRIMARY",
+                "key": null,
+                "key_len": null,
+                "ref": null,
+                "rows": "3",
+                "Extra": "Using where; Using join buffer (flat, BNL join)"
+            }
+        ]
+    }
+}
