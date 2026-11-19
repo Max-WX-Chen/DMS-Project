@@ -5,6 +5,8 @@ Database Management System Group Project
 
 [安装、运行和演示账号](docs/XAMPP.md) · [账号与会籍接口](docs/design/billing-v1.md) · [数据库字典](docs/design/schema-v1.md) · [C1 验证记录](docs/tasks/T04_C1_Database_Billing.md)
 
+运行后打开 [FORM Club 动态网站](http://127.0.0.1:8091/)。会员可购买、预约、取消并查看会籍；管理员可排课、确认线下收款、签到、结课和查看报表。参见 [C2 接口](docs/design/classes-v1.md)、[C2 验证记录](docs/tasks/T05_C2_Classes.md) 与 [全量数据恢复和性能结果](docs/design/scale-validation-v1.md)。
+
 用 `database/form_club.sql` 初始化小型演示库。课程规模验收可在另一空库中依次导入该文件和 `database/scale_fixture.sql`。网页服务以 `public/` 为文档根目录。
 
 健身中心会员与课程预约管理系统。仓库收录阶段一的问题描述和 ER 草稿，以及 11 月 27 日阶段的静态网页。
