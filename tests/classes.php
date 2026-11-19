@@ -161,9 +161,15 @@ verify(attempt(1,'resources.save',['kind'=>'venue','id'=>$venues[0],'name'=>"Roo
        'scheduled session protects venue');
 clockAt($start-7199);
 verify(attempt($winner,'bookings.cancel',['booking_id'=>$bid])['error']==='CANCEL_WINDOW','one second past cancellation cutoff');
+verify(attempt($winner,'bookings.list',[])['data']['items'][0]['can_cancel']===false,
+       'booking list closes cancellation one second after the deadline');
 clockAt($start-7200);
+verify(attempt($winner,'bookings.list',[])['data']['items'][0]['can_cancel']===true,
+       'booking list allows cancellation at the exact deadline');
 $result = race($start-7200,[[$winner,'bookings.cancel',['booking_id'=>$bid]],[$winner,'bookings.cancel',['booking_id'=>$bid]]]);
 verify($result[0]['ok'] && $result[1]['ok'] && fcSessionDetail($sid)['spots_left']===1,'exactly two hours and duplicate cancellations');
+verify(attempt($winner,'bookings.list',['scope'=>'cancelled'])['data']['items'][0]['can_cancel']===false,
+       'booking list hides cancellation for a cancelled booking');
 $result = race($before,[[$winner,'bookings.create',$book],[$winner,'bookings.create',$book]]);
 verify($result[0]['ok'] && $result[1]['ok'] && (int)$result[0]['data']['booking_id']===$bid &&
        (int)$result[1]['data']['booking_id']===$bid,'concurrent rebooking reuses same booking');
@@ -194,9 +200,20 @@ $otherBid = one('SELECT booking_id FROM bookings WHERE user_id=? AND session_id=
 clockAt($start+901);
 verify(attempt(1,'attendance.checkin',['booking_id'=>$otherBid])['error']==='CHECKIN_WINDOW','one second past check-in close');
 // A different session verifies the other inclusive endpoint while keeping this attendee absent.
-$otherClassBid = (int)one("SELECT booking_id FROM bookings WHERE user_id=? AND session_id IN (?,?) AND status='CONFIRMED'",[$other,$second,$third])['booking_id'];
+$laterBooking = one("SELECT booking_id,session_id FROM bookings WHERE user_id=? AND session_id IN (?,?) AND status='CONFIRMED'",[$other,$second,$third]);
+$otherClassBid = (int)$laterBooking['booking_id'];
 clockAt($start+7200+900);
-verify(attempt(1,'attendance.checkin',['booking_id'=>$otherClassBid])['ok'],'exactly fifteen minutes after start still permits check-in');
+$checked = attempt(1,'attendance.checkin',['booking_id'=>$otherClassBid]);
+verify($checked['ok'],'exactly fifteen minutes after start still permits check-in');
+$stop = ['session_id'=>(int)$laterBooking['session_id']];
+verify(attempt(1,'sessions.cancel',$stop)['ok'],'club can cancel a session after check-in');
+$rosterBooking = attempt(1,'sessions.roster',$stop)['data']['items'][0];
+$memberBooking = attempt($other,'bookings.list',['scope'=>'cancelled'])['data']['items'][0];
+verify($rosterBooking['booking_status']==='CANCELLED_BY_CENTER' && $rosterBooking['attendance_status']==='VOIDED' &&
+       $rosterBooking['checked_at']===$checked['data']['checked_at'],'roster marks an earlier check-in void and retains its timestamp');
+verify((int)$memberBooking['booking_id']===$otherClassBid && $memberBooking['attendance_status']===null &&
+       $memberBooking['checked_at']===null && $memberBooking['can_cancel']===false,
+       'member booking suppresses voided check-in and cancellation');
 clockAt($start+3599);
 verify(attempt(1,'sessions.complete',$book)['error']==='SESSION_IN_PROGRESS','cannot finalize before end');
 $result = race($start+3600,[[1,'sessions.complete',$book],[1,'sessions.complete',$book]]);

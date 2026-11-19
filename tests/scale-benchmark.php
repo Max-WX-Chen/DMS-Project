@@ -81,7 +81,10 @@ $checks = [
         AS previous_end FROM bookings b JOIN class_sessions s USING(session_id) WHERE b.status='CONFIRMED') t
         WHERE previous_end > starts_at",
     'attendance' => "SELECT COUNT(*) FROM attendance a JOIN bookings b USING(booking_id)
-        JOIN class_sessions s USING(session_id) WHERE b.status<>'CONFIRMED' OR s.status='CANCELLED'
+        JOIN class_sessions s USING(session_id)
+        WHERE ((b.status<>'CONFIRMED' OR s.status='CANCELLED') AND NOT (
+            b.status='CANCELLED_BY_CENTER' AND s.status='CANCELLED' AND a.status='PRESENT'
+            AND a.checked_at<=b.cancelled_at))
         OR (a.status='ABSENT' AND (s.status<>'COMPLETED' OR s.ends_at>NOW() OR a.checked_at IS NOT NULL))
         OR (a.status='PRESENT' AND (a.checked_at IS NULL OR a.checked_at<s.starts_at-INTERVAL 30 MINUTE
                                      OR a.checked_at>s.starts_at+INTERVAL 15 MINUTE))",

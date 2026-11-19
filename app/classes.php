@@ -356,6 +356,12 @@ function fcRequireBookable(int $uid, array $s, string $now): void
     }
 }
 
+function fcCancellationOpen(string $sessionStatus, string $startsAt, string $now): bool
+{
+    $cutoff = (new DateTimeImmutable($startsAt))->modify('-2 hours')->format('Y-m-d H:i:s');
+    return $sessionStatus === 'SCHEDULED' && $now <= $cutoff;
+}
+
 function fcCancelBooking(int $uid, int $bid): array
 {
     return tx(function () use ($uid,$bid) {
@@ -370,8 +376,7 @@ function fcCancelBooking(int $uid, int $bid): array
             return $b;
         }
         $now = fcNow();
-        $cutoff = (new DateTimeImmutable($s['starts_at']))->modify('-2 hours')->format('Y-m-d H:i:s');
-        if ($s['status'] !== 'SCHEDULED' || $now > $cutoff) {
+        if (!fcCancellationOpen($s['status'], $s['starts_at'], $now)) {
             fail('CANCEL_WINDOW', 'Cancel at least two hours before a scheduled session.', 409);
         }
         run("UPDATE bookings SET status='CANCELLED_BY_MEMBER',cancelled_at=? WHERE booking_id=?", [$now,$bid]);
@@ -445,12 +450,19 @@ function fcBookings(array $in, int $uid): array
         $where .= ' AND b.status=?';
         $args[] = fcEnum($in, 'status', ['CONFIRMED','CANCELLED_BY_MEMBER','CANCELLED_BY_CENTER']);
     }
-    return fcPage($in, "SELECT b.*,s.status AS session_status,s.starts_at,s.ends_at,c.name AS course_name,
+    $result = fcPage($in, "SELECT b.*,s.status AS session_status,s.starts_at,s.ends_at,c.name AS course_name,
                            h.name AS coach_name,v.name AS venue_name,a.status AS attendance_status,a.checked_at
                       FROM bookings b JOIN class_sessions s ON s.session_id=b.session_id JOIN courses c ON c.course_id=s.course_id
                       JOIN coaches h ON h.coach_id=s.coach_id JOIN venues v ON v.venue_id=s.venue_id
-                      LEFT JOIN attendance a ON a.booking_id=b.booking_id
+                      LEFT JOIN attendance a ON a.booking_id=b.booking_id AND b.status='CONFIRMED' AND s.status<>'CANCELLED'
                      WHERE b.user_id=? $where ORDER BY s.starts_at DESC,b.booking_id DESC", $args);
+    $now = fcNow();
+    foreach ($result['items'] as &$booking) {
+        $booking['can_cancel'] = $booking['status'] === 'CONFIRMED'
+            && fcCancellationOpen($booking['session_status'], $booking['starts_at'], $now);
+    }
+    unset($booking);
+    return $result;
 }
 
 function fcAttendance(array $in, int $uid): array
@@ -467,7 +479,8 @@ function fcRoster(array $in): array
     $sid = positive($in, 'session_id');
     $session = fcSessionDetail($sid);
     return ['session' => $session] + fcPage($in, "SELECT b.booking_id,b.user_id,u.full_name,b.status AS booking_status,
-        a.status AS attendance_status,a.checked_at FROM bookings b JOIN users u ON u.user_id=b.user_id
+        CASE WHEN s.status='CANCELLED' AND a.status='PRESENT' THEN 'VOIDED' ELSE a.status END AS attendance_status,
+        a.checked_at FROM bookings b JOIN users u ON u.user_id=b.user_id JOIN class_sessions s ON s.session_id=b.session_id
         LEFT JOIN attendance a ON a.booking_id=b.booking_id WHERE b.session_id=? ORDER BY u.full_name,b.booking_id", [$sid]);
 }
 

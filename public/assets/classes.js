@@ -66,11 +66,18 @@ export async function sessionPage() {
 export async function bookingsPage() {
   const denial = guarded('MEMBER');
   if (denial) return denial;
-  const list = rows(await api('bookings.list',listParams(['scope'])));
+  const list = rows(await api('bookings.list',listParams(['scope']))).map(booking =>
+    booking.session_status === 'CANCELLED' ? {...booking, attendance_status:'Class cancelled'} : booking);
   return head('My bookings.') + filter(select('scope','Show',[['all','All bookings'],['upcoming','Upcoming'],['past','Past'],['cancelled','Cancelled']],query.get('scope') || 'all')) +
     table(list,[['booking_id','Booking'],['course_name','Class'],['starts_at','Starts'],['status','Booking'],['session_status','Session'],['attendance_status','Attendance']],
-      b => link('View class','session',{session_id:b.session_id}) + (b.status === 'CONFIRMED' && b.session_status === 'SCHEDULED' ?
-        button('bookings.cancel','Cancel booking',{booking_id:b.booking_id}) : '')) + paging(list);
+      b => {
+        const details = link('View class','session',{session_id:b.session_id});
+        if (b.can_cancel) return details + button('bookings.cancel','Cancel booking',{booking_id:b.booking_id});
+        if (b.status === 'CONFIRMED' && b.session_status === 'SCHEDULED') {
+          return details + '<span>Cancellation window closed</span>';
+        }
+        return details;
+      }) + paging(list);
 }
 
 export async function dashboardPage() {
@@ -125,12 +132,13 @@ export async function rosterPage() {
   const id = query.get('session_id');
   const result = await api('sessions.roster',{...listParams(),session_id:id});
   const s = result.session;
-  const list = rows(result);
+  const list = rows(result).map(booking =>
+    booking.attendance_status === 'VOIDED' ? {...booking, attendance_status:'Voided (class cancelled)'} : booking);
   return head(s.course_name + ' · Roster','Session #' + id + ' · ' + s.starts_at + ' – ' + s.ends_at) +
     '<div class="card">' + facts([['Coach',s.coach_name],['Venue',s.venue_name],['Status',s.status],['Reserved',s.booked + ' / ' + s.capacity]]) +
     (s.status === 'SCHEDULED' ? '<div class="row-actions">' + link('Edit session','edit-session',{session_id:id},'btn outline') +
       button('sessions.complete','Complete session',{session_id:id}) + button('sessions.cancel','Cancel session',{session_id:id}) + '</div>' : '') +
-    '</div>' + section('Bookings',table(list,[['booking_id','Booking'],['full_name','Member'],['booking_status','Booking status'],['attendance_status','Attendance'],['checked_at','Checked in']],
+    '</div>' + section('Bookings',table(list,[['booking_id','Booking'],['full_name','Member'],['booking_status','Booking status'],['attendance_status','Attendance'],['checked_at','Check-in time']],
       b => b.booking_status === 'CONFIRMED' && !b.attendance_status && s.status === 'SCHEDULED' ? button('attendance.checkin','Check in',{booking_id:b.booking_id}) : '') + paging(list));
 }
 

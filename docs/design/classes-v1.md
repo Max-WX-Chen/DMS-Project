@@ -31,15 +31,15 @@
 |---|---|---|---|---|
 | V07 · W03 | POST `bookings.create`，Member | `session_id` | 预约对象和 `spots_left`。重复确认返回同一个 booking_id，会员取消后符合条件可恢复同一记录 | `CLASS_FULL`、`MEMBERSHIP_COVERAGE`、`BOOKING_CONFLICT`、`BOOKING_WINDOW`、`SESSION_CLOSED` |
 | V08 · W04 | POST `bookings.cancel`，Member | `booking_id`，限本人 | 预约对象，首次成功为 `CANCELLED_BY_MEMBER`。重复取消返回已有状态 | 其他会员 ID 返回 `NOT_FOUND`；超时为 `CANCEL_WINDOW` |
-| V08 · W03/W04 | GET `bookings.list`，Member | 可选 `scope=all/upcoming/past/cancelled`（默认 all）、`status`，支持分页 | 本人预约列表，按开课时间、booking_id 倒序，包含课程、教练、场地、场次状态和出勤结果 | 无效状态为 `INVALID_INPUT` |
-| V15 · W06 | GET `sessions.roster`，Admin | `session_id`，支持分页 | `{session,items,limit,offset}`；每行含 `booking_id,user_id,full_name,booking_status,attendance_status,checked_at`。按姓名、booking_id 排序，保留取消的行，可依状态隐藏 | 普通会员为 `FORBIDDEN` |
+| V08 · W03/W04 | GET `bookings.list`，Member | 可选 `scope=all/upcoming/past/cancelled`（默认 all）、`status`，支持分页 | 本人预约列表，按开课时间、booking_id 倒序，包含课程、教练、场地、场次状态、有效出勤结果和布尔值 `can_cancel` | 无效状态为 `INVALID_INPUT` |
+| V15 · W06 | GET `sessions.roster`，Admin | `session_id`，支持分页 | `{session,items,limit,offset}`；每行含 `booking_id,user_id,full_name,booking_status,attendance_status,checked_at`。按姓名、booking_id 排序，保留取消的行，停课前的签到显示为 `VOIDED` | 普通会员为 `FORBIDDEN` |
 | V15 · W06 | POST `attendance.checkin`，Admin | `booking_id` | `{attendance_id,booking_id,status:"PRESENT",checked_at}`；重试同一有效签到返回原时间 | 已取消预约为 `INVALID_BOOKING`，窗口外为 `CHECKIN_WINDOW` |
 | V15 · W06 | POST `sessions.complete`，Admin | `session_id` | 场次状态 COMPLETED，事务内给尚未签到的有效预约生成 ABSENT。重复结课读取已有结果 | 未结束为 `SESSION_IN_PROGRESS`，已停课为 `SESSION_CLOSED` |
 | V10 · W06 | GET `attendance.list`，Member | 分页 | 本人有效且已结课的出勤列表，按开课时间、booking_id 倒序，含场次 ID、课程名称和起止时间 | 未登录为 `LOGIN_REQUIRED` |
 
-预约行含 `booking_id,user_id,session_id,status,booked_at,cancelled_at`。预约状态为 CONFIRMED、CANCELLED_BY_MEMBER 或 CANCELLED_BY_CENTER。取消时间在确认状态为空。未记录的出勤和 ABSENT 签到时间均为空，前端依 `attendance_status` 区分。停课后之前的签到在原始名单保留，运营报表和个人已结课出勤不纳入该场次。
+预约行含 `booking_id,user_id,session_id,status,booked_at,cancelled_at`。预约状态为 CONFIRMED、CANCELLED_BY_MEMBER 或 CANCELLED_BY_CENTER。取消时间在确认状态为空。未记录的出勤和 ABSENT 签到时间均为空，前端依 `attendance_status` 区分。停课后会员预约的 `attendance_status` 和 `checked_at` 均为空，页面显示 “Class cancelled”。管理名单通过 `VOIDED` 和原 `checked_at` 保留签到历史。该作废状态从场次状态和原签到推导，数据库继续保留原记录。运营报表和个人已结课出勤只统计符合条件的有效预约。
 
-课表使用左闭右开区间。开课前 30 天整开放，开课时截止。两段已付会籍首尾相接可以共同覆盖一节课。会员最迟可在开课前 2 小时整取消。签到窗口包含开课前 30 分钟与开课后 15 分钟两个端点。课程结束时可显式结课。
+课表使用左闭右开区间。开课前 30 天整开放，开课时截止。两段已付会籍首尾相接可以共同覆盖一节课。会员最迟可在开课前 2 小时整取消。`bookings.list` 按查询时的数据库时钟返回 `can_cancel`，读取和提交共用截止规则。提交时在事务内复验当前资格。签到窗口包含开课前 30 分钟与开课后 15 分钟两个端点。课程结束时可显式结课。
 
 ## 仪表盘与统计
 
